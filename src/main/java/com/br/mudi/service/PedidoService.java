@@ -20,5 +20,10 @@ public class PedidoService {
 	public List<Pedido> read() {
 		return pedidoRepository.findAll();
 	}
+
+	@Transactional
+	public Pedido criarPedido(Pedido pedido) {
+		return pedidoRepository.save(pedido);
+	}
 	
 }
