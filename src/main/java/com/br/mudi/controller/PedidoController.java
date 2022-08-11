@@ -16,8 +16,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @RequestMapping("/pedidos")
 public class PedidoController {
-	
-	private PedidoRepository pedidoRepository;
+
 	private PedidoService pedidoService;
 	
 	@GetMapping
