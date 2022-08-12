@@ -1,25 +1,10 @@
 <html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
 
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;700&display=swap" rel="stylesheet">
-
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-	<link rel="stylesheet" type="text/css" th:href="@{/css/teste.css}">
-
-	<title>Produto</title>
-</head>
+<head th:replace="~{base :: head}"></head>
 
 <body>
+
+	<div th:replace="~{base :: logo}"></div>
 
 	<div class="container">
 
@@ -36,16 +21,16 @@
 				<div class="collapse navbar-collapse" id="navbarScroll">
 					<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
 						<li class="nav-item">
-							<a class="nav-link" href="#">Todos</a>
+							<a class="nav-link" href="/home">Todos</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Aguardando</a>
+							<a th:classappend="${status} == 'aguardando' ? 'active'" class="nav-link" href="/home/aguardando">Aguardando</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Aprovado</a>
+							<a th:classappend="${status} == 'aprovado' ? 'active'" class="nav-link" href="/home/aprovado">Aprovado</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Entregue</a>
+							<a th:classappend="${status} == 'entregue' ? 'active'" class="nav-link" href="/home/entregue">Entregue</a>
 						</li>
 					</ul>
 
@@ -57,21 +42,29 @@
 
 		<div th:each="pedido : ${pedidos}" class="card">
 
-			<div class="card-header" th:text=${pedido.nomeProduto}>
-				Nome do produto
-			</div>
-
+			<th:block th:switch="${pedido.status.name()}">
+				<div th:case="AGUARDANDO" class="card-header alert alert-warning" th:text=${pedido.nomeProduto}>
+					Nome do produto
+				</div>
+				<div th:case="APROVADO" class="card-header alert-primary" th:text=${pedido.nomeProduto}>
+					Nome do produto
+				</div>
+				<div th:case="ENTREGUE" class="card-header alert alert-success" th:text=${pedido.nomeProduto}>
+					Nome do produto
+				</div>
+			</th:block>
+			
 			<div class="card-body">
 				<div class="row">
 					<div class="col-12 col-sm-8 mb-3">
 						<div class="row">
 
 							<div class="col-md-5"> Valor:
-								<span th:text="'R$' + ${pedido.valor}"></span>
+								<span th:text="${#numbers.formatDecimal(pedido.valor,3,2,'COMMA')}"></span>
 							</div>
 
 							<div class="col-md-7"> Data de entrega:
-								<span th:text=${pedido.dataEntrega}></span>
+								<span th:text="${#temporals.format(pedido.dataEntrega, 'dd/MM/yyyy')}" ></span>
 							</div>
 
 						</div>
@@ -82,7 +75,7 @@
 						<div>Descricao</div>
 
 						<div>
-							<textarea class="form-control" th:text=${pedido.descricao}></textarea>
+							<p class="form-control" th:text=${pedido.descricao}></p>
 						</div>
 					</div>
 

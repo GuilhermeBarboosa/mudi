@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.br.mudi.entity.Pedido;
+import com.br.mudi.entity.StatusPedido;
 import com.br.mudi.repository.PedidoRepository;
 
 import lombok.AllArgsConstructor;
@@ -24,6 +25,10 @@ public class PedidoService {
 	@Transactional
 	public Pedido criarPedido(Pedido pedido) {
 		return pedidoRepository.save(pedido);
+	}
+
+	public List<Pedido> readStatus(StatusPedido statusPedido) {
+		return pedidoRepository.findByStatus(statusPedido);
 	}
 	
 }

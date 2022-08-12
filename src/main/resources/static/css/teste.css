@@ -2,3 +2,11 @@ body {
 	font-family: 'Arial', sans-serif;
 	font-weight: bold;
 }
+
+.logo-container{
+	background-color: rgb(39, 119, 216);
+	padding: 2rem;
+	font-size: 2rem;
+	color: white;
+}
+

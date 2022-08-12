@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.mudi.entity.Pedido;
+import com.br.mudi.entity.StatusPedido;
 import com.br.mudi.repository.PedidoRepository;
 import com.br.mudi.service.PedidoService;
 
@@ -23,4 +24,9 @@ public class PedidoController {
 	public List<Pedido> listarPedidos(){
 		return pedidoService.read();
 	}
+
+	public List<Pedido> listarPedidosStatus(StatusPedido statusPedido) {
+		return pedidoService.readStatus(statusPedido);
+	}
+	
 }

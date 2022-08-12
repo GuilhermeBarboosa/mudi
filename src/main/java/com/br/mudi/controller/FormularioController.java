@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import com.br.mudi.entity.Pedido;
+import com.br.mudi.entity.StatusPedido;
 import com.br.mudi.service.PedidoService;
 
 import lombok.AllArgsConstructor;
@@ -33,11 +34,13 @@ public class FormularioController {
 		if(result.hasErrors()){
 			return "pedidos/formulario";
 		}
-
-		pedidoEnviado.setDataEntrega(LocalDate.now().plusDays(15));
+	
+		pedidoEnviado.setStatus(StatusPedido.AGUARDANDO);
+		
 		pedidoService.criarPedido(pedidoEnviado);
-		return "pedidos/formulario";
+		return "redirect:/home";
 	}
+	
 	
 	
 }
