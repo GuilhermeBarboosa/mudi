@@ -4,6 +4,8 @@
 
 <body>
 
+	<div th:replace="~{base :: style}"></div>
+
 	<div th:replace="~{base :: logo}"></div>
 
 	<div class="container">
@@ -24,13 +26,16 @@
 							<a class="nav-link" href="/home">Todos</a>
 						</li>
 						<li class="nav-item">
-							<a th:classappend="${status} == 'aguardando' ? 'active'" class="nav-link" href="/home/aguardando">Aguardando</a>
+							<a th:classappend="${status} == 'aguardando' ? 'active'" class="nav-link"
+								href="/home/aguardando">Aguardando</a>
 						</li>
 						<li class="nav-item">
-							<a th:classappend="${status} == 'aprovado' ? 'active'" class="nav-link" href="/home/aprovado">Aprovado</a>
+							<a th:classappend="${status} == 'aprovado' ? 'active'" class="nav-link"
+								href="/home/aprovado">Aprovado</a>
 						</li>
 						<li class="nav-item">
-							<a th:classappend="${status} == 'entregue' ? 'active'" class="nav-link" href="/home/entregue">Entregue</a>
+							<a th:classappend="${status} == 'entregue' ? 'active'" class="nav-link"
+								href="/home/entregue">Entregue</a>
 						</li>
 					</ul>
 
@@ -53,7 +58,7 @@
 					Nome do produto
 				</div>
 			</th:block>
-			
+
 			<div class="card-body">
 				<div class="row">
 					<div class="col-12 col-sm-8 mb-3">
@@ -64,7 +69,7 @@
 							</div>
 
 							<div class="col-md-7"> Data de entrega:
-								<span th:text="${#temporals.format(pedido.dataEntrega, 'dd/MM/yyyy')}" ></span>
+								<span th:text="${#temporals.format(pedido.dataEntrega, 'dd/MM/yyyy')}"></span>
 							</div>
 
 						</div>

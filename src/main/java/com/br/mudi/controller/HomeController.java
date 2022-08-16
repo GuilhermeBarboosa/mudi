@@ -1,6 +1,7 @@
 package com.br.mudi.controller;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.br.mudi.entity.Pedido;
 import com.br.mudi.entity.StatusPedido;
+import com.br.mudi.repository.PedidoRepository;
 import com.br.mudi.service.PedidoService;
 
 import lombok.AllArgsConstructor;
@@ -27,11 +29,13 @@ public class HomeController {
 
 	@Autowired
 	private PedidoController pedidoController;
+	
+
 
 	@GetMapping
-	public String home(Model model) {
+	public String home(Model model, Principal principal) {
 
-		List<Pedido> arrayPedido = pedidoController.listarPedidos();
+		List<Pedido> arrayPedido = pedidoController.listarPedidosUser(principal.getName());
 
 		model.addAttribute("pedidos", arrayPedido);
 

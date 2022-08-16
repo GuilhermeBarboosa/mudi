@@ -12,13 +12,43 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-	<link rel="stylesheet" type="text/css" th:href="@{/css/teste.css}">
+
 
 	<title>Produto</title>
 </head>
 
-
 <div th:fragment="logo" class="logo-container d-flex justify-content-between">
-		<span>Mudi</span>
-		<span class="align-self-center" style="font-size: 1rem;">Login</span>
+	<span>Mudi</span>
+	<span class="align-self-center" style="font-size: 1rem;">
+
+		<a sec:authorize="!isAuthenticated()" href="/login">Login</a>
+		<a onclick="document.querySelector('#form-login').submit()" sec:authorize="isAuthenticated()" href="#">Logout</a>
+		
+		<form id="form-login" th:action="@{/logout}" method="post"></form>
+	</span>
+</div>
+
+<div th:fragment="style">
+	<style>
+		body {
+			font-family: 'Arial', sans-serif;
+			font-weight: bold;
+		}
+
+		.logo-container {
+			background-color: rgb(39, 119, 216);
+			padding: 2rem;
+			font-size: 2rem;
+			color: white;
+		}
+
+		a {
+			color: white;
+			text-decoration: none;
+		}
+
+		a:hover {
+			color: chartreuse;
+		}
+	</style>
 </div>

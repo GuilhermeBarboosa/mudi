@@ -30,5 +30,10 @@ public class PedidoService {
 	public List<Pedido> readStatus(StatusPedido statusPedido) {
 		return pedidoRepository.findByStatus(statusPedido);
 	}
+
+	@Transactional
+	public List<Pedido> readPedidosUsername(String name) {
+		return pedidoRepository.findByUsername(name);
+	}
 	
 }

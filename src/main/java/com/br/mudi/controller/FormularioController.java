@@ -15,6 +15,7 @@ import com.br.mudi.service.PedidoService;
 import lombok.AllArgsConstructor;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.time.LocalDate;
 
 @Controller
@@ -38,6 +39,7 @@ public class FormularioController {
 		pedidoEnviado.setStatus(StatusPedido.AGUARDANDO);
 		
 		pedidoService.criarPedido(pedidoEnviado);
+		
 		return "redirect:/home";
 	}
 	

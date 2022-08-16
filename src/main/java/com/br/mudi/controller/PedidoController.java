@@ -28,5 +28,9 @@ public class PedidoController {
 	public List<Pedido> listarPedidosStatus(StatusPedido statusPedido) {
 		return pedidoService.readStatus(statusPedido);
 	}
+
+	public List<Pedido> listarPedidosUser(String name) {
+		return pedidoService.readPedidosUsername(name);
+	}
 	
 }
