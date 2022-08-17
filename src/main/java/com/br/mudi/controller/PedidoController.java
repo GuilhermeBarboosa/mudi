@@ -2,6 +2,8 @@ package com.br.mudi.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,8 +27,8 @@ public class PedidoController {
 		return pedidoService.read();
 	}
 
-	public List<Pedido> listarPedidosStatus(StatusPedido statusPedido) {
-		return pedidoService.readStatus(statusPedido);
+	public List<Pedido> listarPedidosStatus(StatusPedido statusPedido, PageRequest paginacao) {
+		return pedidoService.readStatus(statusPedido, paginacao);
 	}
 
 	public List<Pedido> listarPedidosUser(String name) {

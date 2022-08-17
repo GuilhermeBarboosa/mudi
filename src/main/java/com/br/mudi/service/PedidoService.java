@@ -2,9 +2,11 @@ package com.br.mudi.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.data.domain.Sort;
 import com.br.mudi.entity.Pedido;
 import com.br.mudi.entity.StatusPedido;
 import com.br.mudi.repository.PedidoRepository;
@@ -27,8 +29,8 @@ public class PedidoService {
 		return pedidoRepository.save(pedido);
 	}
 
-	public List<Pedido> readStatus(StatusPedido statusPedido) {
-		return pedidoRepository.findByStatus(statusPedido);
+	public List<Pedido> readStatus(StatusPedido statusPedido, PageRequest paginacao) {
+		return pedidoRepository.findByStatus(statusPedido, paginacao);
 	}
 
 	@Transactional

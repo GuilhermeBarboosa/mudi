@@ -1,11 +1,14 @@
 package com.br.mudi.controller;
 
 import java.security.Principal;
+
 import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,7 +23,7 @@ import com.br.mudi.repository.PedidoRepository;
 import com.br.mudi.repository.UserRepository;
 
 import lombok.AllArgsConstructor;
-
+import org.springframework.data.domain.Sort;
 @Controller
 @AllArgsConstructor
 @RequestMapping("/home")
@@ -31,7 +34,10 @@ public class HomeController {
 	@GetMapping
 	public String home(Model model, Principal principal) {
 		
-		List<Pedido> arrayPedido = pedidoController.listarPedidosStatus(StatusPedido.ENTREGUE);
+		Sort sort = Sort.by("dataEntrega").descending();
+		PageRequest paginacao = PageRequest.of(0, 1, sort);
+		
+		List<Pedido> arrayPedido = pedidoController.listarPedidosStatus(StatusPedido.ENTREGUE, paginacao);
 
 		model.addAttribute("pedidos", arrayPedido);
 		
