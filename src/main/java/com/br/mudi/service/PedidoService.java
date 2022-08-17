@@ -35,5 +35,9 @@ public class PedidoService {
 	public List<Pedido> readPedidosUsername(String name) {
 		return pedidoRepository.findByUsername(name);
 	}
+
+	public List<Pedido> listaStatusUsername(StatusPedido status, String username) {
+		return pedidoRepository.listarPedidosStatusUsername(status, username);
+	}
 	
 }

@@ -14,6 +14,40 @@
 
 		<div th:replace="~{base :: titulo('Últimos pedidos')}"></div>
 
+		<div>
+			<h3>Olá, <span th:text="${user.nome}"></span></h3>
+		</div>
+
+		<nav class="navbar navbar-expand-lg navbar-light bg-light align-self-start">
+			<div class="container-fluid">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+					aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarScroll">
+					<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/usuario/pedido/}">Todos</a>
+						</li>
+						<li class="nav-item">
+							<a th:classappend="${status} == 'aguardando' ? 'active'" class="nav-link"
+								th:href="@{/usuario/pedido/aguardando}">Aguardando</a>
+						</li>
+						<li class="nav-item">
+							<a th:classappend="${status} == 'aprovado' ? 'active'" class="nav-link"
+								th:href="@{/usuario/pedido/aprovado}">Aprovado</a>
+						</li>
+						<li class="nav-item">
+							<a th:classappend="${status} == 'entregue' ? 'active'" class="nav-link"
+								th:href="@{/usuario/pedido/entregue}">Entregue</a>
+						</li>
+					</ul>
+
+					<a href="/pedido/formulario"><button type="button" class="btn btn-outline-success">Novo</button></a>
+				</div>
+			</div>
+		</nav>
+
 		<div th:each="pedido : ${pedidos}" class="card">
 
 			<div class="card-header alert alert-success" th:text=${pedido.nomeProduto}>

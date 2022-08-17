@@ -1,24 +1,23 @@
 package com.br.mudi.controller;
 
-import java.math.BigDecimal;
 import java.security.Principal;
-import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.br.mudi.entity.Pedido;
 import com.br.mudi.entity.StatusPedido;
+import com.br.mudi.entity.User;
 import com.br.mudi.repository.PedidoRepository;
-import com.br.mudi.service.PedidoService;
+import com.br.mudi.repository.UserRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -27,35 +26,16 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/home")
 public class HomeController {
 
-	@Autowired
 	private PedidoController pedidoController;
 	
-
-
 	@GetMapping
 	public String home(Model model, Principal principal) {
-
-		List<Pedido> arrayPedido = pedidoController.listarPedidosUser(principal.getName());
-
-		model.addAttribute("pedidos", arrayPedido);
-
-		return "home";
-	}
-
-	@GetMapping("/{status}")
-	public String aguardando(@PathVariable("status") String status, Model model) {
-
-		List<Pedido> arrayPedido = pedidoController.listarPedidosStatus(StatusPedido.valueOf(status.toUpperCase()));
+		
+		List<Pedido> arrayPedido = pedidoController.listarPedidosStatus(StatusPedido.ENTREGUE);
 
 		model.addAttribute("pedidos", arrayPedido);
-		model.addAttribute("status", status);
-
+		
 		return "home";
-	}
-	
-	@ExceptionHandler
-	public String onError(IllegalArgumentException illegalArgumentException) {
-		return "redirect:/home";
 	}
 
 }

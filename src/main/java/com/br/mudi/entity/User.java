@@ -21,6 +21,7 @@ public class User {
 	@Id
 	private String username;
 	private String password;
+	private String nome;
 	private Boolean enabled;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)

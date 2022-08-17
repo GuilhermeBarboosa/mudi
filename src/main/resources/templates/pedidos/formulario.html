@@ -11,9 +11,8 @@
 
 	<div class="container">
 
-		<div class="jumbotron">
-			<h1 class="display-4 m-5">Novo pedido</h1>
-		</div>
+		<div th:replace="~{base :: titulo('Novo pedido')}"></div>
+
 
 		<form th:object="${pedido}" action="/pedido/novo" method="POST">
 
