@@ -1,0 +1,69 @@
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="~{base :: head}"></head>
+
+<body onload="onLoad()">
+
+	<div th:replace="~{base :: style}"></div>
+
+	<div th:replace="~{base :: logo}"></div>
+
+	<div class="container" id="ofertas">
+
+		<div th:replace="~{base :: nav}"></div>
+
+		<div th:replace="~{base :: titulo('Ofertas')}"></div>
+
+		<div th:each="pedido : ${pedidos}" class="card">
+
+			<div style="margin: 20px;">
+				<span class=" alert-light"  th:text=${pedido.nomeProduto}>
+					Nome do produto</span>
+
+				<a th:href="@{/usuario/ofertas/valor/{id}(id = ${pedido.id})}"><button type="button" th:value="${pedido.nomeProduto}" th:id="${pedido.id}" class="btn btn-success" style="float: right;">Adicionar preço</button></a>
+			</div>
+
+			<div class="card-body">
+				<div class="row">
+					<div class="col-12 col-sm-8 mb-3">
+						<div class="row">
+
+							<div class="col-md-5"> Valor:
+								<span th:text="${#numbers.formatDecimal(pedido.valor,3,2,'COMMA')}"></span>
+							</div>
+
+							<div class="col-md-7"> Data de entrega:
+								<span th:text="${#temporals.format(pedido.dataEntrega, 'dd/MM/yyyy')}"></span>
+							</div>
+
+						</div>
+						<div>Produto</div>
+
+						<input class="form-control" th:value=${pedido.urlProduto} disabled></input>
+
+						<div>Descricao</div>
+
+						<div>
+							<p class="form-control" th:text=${pedido.descricao}></p>
+						</div>
+					</div>
+
+					<div class="col-12 col-sm-4">
+						<div>
+							<img class="img-thumbnail" th:src="${pedido.urlImagem}">
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>
