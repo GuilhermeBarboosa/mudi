@@ -37,20 +37,21 @@ public class FormularioController {
 	}
 
 	@PostMapping("/novo")
-	public String criarPedido(@Valid Pedido pedidoEnviado, BindingResult result, Principal principal
-			) {
+	public String criarPedido(@Valid Pedido pedidoEnviado, BindingResult result, Principal principal) {
 		if (result.hasErrors()) {
 			return "pedidos/formulario";
 		}
 
-		//Optional<User> user = userRepository.findById(usuarioLogado.getUsername());
+		// Optional<User> user = userRepository.findById(usuarioLogado.getUsername());
 
 		userRepository.findById(principal.getName()).ifPresent(user -> pedidoEnviado.setUser(user));
-	
+
 		pedidoEnviado.setStatus(StatusPedido.AGUARDANDO);
 		pedidoService.criarPedido(pedidoEnviado);
 
 		return "redirect:/home";
 	}
+
+	
 
 }

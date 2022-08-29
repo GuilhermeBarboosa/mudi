@@ -1,6 +1,7 @@
 package com.br.mudi.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -41,6 +42,14 @@ public class PedidoController {
 
 	public List<Pedido> listaStatusUsernameEntregue(String name) {
 		return pedidoService.listaStatusUsername(StatusPedido.ENTREGUE, name);
+	}
+
+	public List<Pedido> listaOfertas(String name) {
+		return pedidoService.listaOferta(StatusPedido.AGUARDANDO, name);
+	}
+
+	public Optional<Pedido> procuraPedido(Long id) {
+		return pedidoService.procuraPedido(id);
 	}
 	
 }

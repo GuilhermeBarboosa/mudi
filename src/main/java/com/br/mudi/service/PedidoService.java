@@ -1,6 +1,7 @@
 package com.br.mudi.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -40,6 +41,14 @@ public class PedidoService {
 
 	public List<Pedido> listaStatusUsername(StatusPedido status, String username) {
 		return pedidoRepository.listarPedidosStatusUsername(status, username);
+	}
+
+	public List<Pedido> listaOferta(StatusPedido status, String name) {
+		return pedidoRepository.listarOfertas(status, name);
+	}
+
+	public Optional<Pedido> procuraPedido(Long id) {
+		return pedidoRepository.findById(id);
 	}
 	
 }
