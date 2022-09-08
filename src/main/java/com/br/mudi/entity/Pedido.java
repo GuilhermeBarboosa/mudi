@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.EqualsAndHashCode;
@@ -43,6 +45,7 @@ public class Pedido {
 	private BigDecimal valor;
 	
 	@JoinColumn(name = "data_entrega")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dataEntrega;
 
 	@NotBlank

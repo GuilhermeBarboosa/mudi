@@ -1,20 +1,20 @@
 package com.br.mudi.controller;
 
+import java.math.BigDecimal;
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.br.mudi.entity.Pedido;
 import com.br.mudi.entity.StatusPedido;
@@ -37,7 +37,7 @@ public class UserController {
 	@GetMapping("/pedido")
 	public String home(Model model, Principal principal) {
 
-		List<Pedido> arrayPedido = pedidoController.listaStatusUsernameEntregue(principal.getName());
+		List<Pedido> arrayPedido = pedidoController.listarPedidosUser(principal.getName());
 
 		userService.findBy(principal.getName()).ifPresent(user -> model.addAttribute("user", user));
 
@@ -68,25 +68,24 @@ public class UserController {
 		return "usuario/valor";
 	}
 
-	@GetMapping("/update/{id}")
-	public String atualizarPreco(Pedido pedidoEnviado, BindingResult result, Principal principal,
-			@PathVariable("id") Long id) {
-		
-		if (result.hasErrors()) {
-			return "redirect:usuario/";
-		}
-	
-		Pedido pedidoAtualizado = pedidoService.procuraPedido(id).get();
+	@PostMapping("/update/{id}")
+	public String atualizarPreco(Pedido pedido, String valor, String dataEntrega) {
 
-		userService.findBy(principal.getName()).ifPresent(user -> pedidoEnviado.setUser(user));
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate date = LocalDate.parse(dataEntrega, dtf);
+		logger.info(date.toString());
 		
-		pedidoAtualizado.setId(id);
-		pedidoAtualizado.setDataEntrega(pedidoEnviado.getDataEntrega());
-		pedidoAtualizado.setValor(pedidoEnviado.getValor());
+		BigDecimal valorProduto =  new BigDecimal(valor);
+		
+		Pedido pedidoAtualizado = pedidoService.procuraPedido(pedido.getId()).get();
+		
+		pedidoAtualizado.setId(pedido.getId());
+		pedidoAtualizado.setDataEntrega(date);
+		pedidoAtualizado.setValor(valorProduto);
 		pedidoAtualizado.setStatus(StatusPedido.APROVADO);
 		pedidoService.criarPedido(pedidoAtualizado);
 
-		return "redirect:usuario/";
+		return "home";
 	}
 
 	@GetMapping("/pedido/{status}")
