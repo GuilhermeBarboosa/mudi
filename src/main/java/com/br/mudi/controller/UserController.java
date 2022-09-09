@@ -5,6 +5,7 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.br.mudi.entity.Pedido;
 import com.br.mudi.entity.StatusPedido;
+import com.br.mudi.entity.User;
 import com.br.mudi.service.PedidoService;
 import com.br.mudi.service.UserService;
 
@@ -69,7 +71,7 @@ public class UserController {
 	}
 
 	@PostMapping("/update/{id}")
-	public String atualizarPreco(Pedido pedido, String valor, String dataEntrega) {
+	public String atualizarPreco(Pedido pedido, String valor, String dataEntrega, Principal principal) {
 
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate date = LocalDate.parse(dataEntrega, dtf);
@@ -79,7 +81,10 @@ public class UserController {
 		
 		Pedido pedidoAtualizado = pedidoService.procuraPedido(pedido.getId()).get();
 		
+		User usuario = userService.findBy(principal.getName()).get();
+		
 		pedidoAtualizado.setId(pedido.getId());
+		pedidoAtualizado.setUser_owner(usuario);
 		pedidoAtualizado.setDataEntrega(date);
 		pedidoAtualizado.setValor(valorProduto);
 		pedidoAtualizado.setStatus(StatusPedido.APROVADO);

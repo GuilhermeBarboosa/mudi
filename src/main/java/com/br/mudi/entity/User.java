@@ -26,5 +26,11 @@ public class User {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Pedido> pedidos;
+
+	@Override
+	public String toString() {
+		return nome;
+	}
+	
 	
 }

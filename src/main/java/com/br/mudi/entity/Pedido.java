@@ -59,6 +59,7 @@ public class Pedido {
 	@NotBlank
 	@JoinColumn(name = "descricao")
 	private String descricao;
+	
 
 	@Enumerated(EnumType.STRING)
 	private StatusPedido status;
@@ -66,4 +67,9 @@ public class Pedido {
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
+	
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_owner")
+	private User user_owner;
 }

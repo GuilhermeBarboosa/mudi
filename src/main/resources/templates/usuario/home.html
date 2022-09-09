@@ -67,6 +67,10 @@
 								<span th:text="${#temporals.format(pedido.dataEntrega, 'dd/MM/yyyy')}"></span>
 							</div>
 
+							<div class="col-md-7" th:classappend="${pedido.user_owner} == null ? 'disabled'"> Entregue por:
+								<span th:text="${pedido.user_owner}"></span>
+							</div>
+
 						</div>
 						<div>Produto</div>
 
